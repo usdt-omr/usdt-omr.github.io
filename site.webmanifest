@@ -1,6 +1,10 @@
 {
   "name": "exchange",
   "short_name": "ex",
+  "scope": "./",
+  "start_url": "./",
+  "categories": ["tools"],
+  "edge_side_panel": {},
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
