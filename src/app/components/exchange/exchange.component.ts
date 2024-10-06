@@ -14,11 +14,16 @@ import { BrowserModule } from '@angular/platform-browser';
   ],
 })
 export class ExchangeComponent {
-  spendAmountBuy: number|any = 0;
-  receiveAmountBuy: number|any = 0;
-  spendAmountSell: number|any = 0;
-  receiveAmountSell: number|any = 0;
+
+  spendAmountBuy: number | any = 0;
+  receiveAmountBuy: number | any = 0;
+  spendAmountSell: number | any = 0;
+  receiveAmountSell: number | any = 0;
   conversionMessage: string = '';
+
+  isSwapedBuy: boolean = false;
+  isSwapedSell: boolean = false;
+
 
   private linearInterpolation(minValue: number, maxValue: number, minRate: number, maxRate: number, value: number): number {
     if (value <= minValue) return minRate;
@@ -49,8 +54,13 @@ export class ExchangeComponent {
   calculateBuy() {
     const exchangeRate = parseFloat(this.getBuyExchangeRate().toFixed(3));
     if (this.spendAmountBuy > 0) {
-      this.receiveAmountBuy = (this.spendAmountBuy / exchangeRate).toFixed(2);
-      this.conversionMessage = `You will receive ${this.receiveAmountBuy} USDT for ${this.spendAmountBuy.toFixed(2)} OMR at the rate of ${exchangeRate}.`;
+      if (this.isSwapedBuy) {
+        this.receiveAmountBuy = (this.spendAmountBuy * exchangeRate).toFixed(2);
+        this.conversionMessage = `You will need to spend ${this.receiveAmountBuy} OMR for ${this.spendAmountBuy.toFixed(2)} USDT at the rate of ${exchangeRate}.`;
+      } else {
+        this.receiveAmountBuy = (this.spendAmountBuy / exchangeRate).toFixed(2);
+        this.conversionMessage = `You will receive ${this.receiveAmountBuy} USDT for ${this.spendAmountBuy.toFixed(2)} OMR at the rate of ${exchangeRate}.`;
+      }
     } else {
       this.conversionMessage = 'Please enter a valid OMR amount to buy USDT.';
     }
@@ -59,10 +69,23 @@ export class ExchangeComponent {
   calculateSell() {
     const exchangeRate = parseFloat(this.getSellExchangeRate().toFixed(3));
     if (this.spendAmountSell > 0) {
-      this.receiveAmountSell = (this.spendAmountSell * exchangeRate).toFixed(2);
-      this.conversionMessage = `You will receive ${this.receiveAmountSell} OMR for ${this.spendAmountSell.toFixed(2)} USDT at the rate of ${exchangeRate}.`;
+      if (this.isSwapedSell) {
+        this.receiveAmountSell = (this.spendAmountSell / exchangeRate).toFixed(2);
+        this.conversionMessage = `You will need to spend ${this.receiveAmountSell} USDT for ${this.spendAmountSell.toFixed(2)} OMR at the rate of ${exchangeRate}.`;
+      } else {
+        this.receiveAmountSell = (this.spendAmountSell * exchangeRate).toFixed(2);
+        this.conversionMessage = `You will receive ${this.receiveAmountSell} OMR for ${this.spendAmountSell.toFixed(2)} USDT at the rate of ${exchangeRate}.`;
+      }
     } else {
       this.conversionMessage = 'Please enter a valid USDT amount to sell.';
     }
   }
+
+  swapAmountsBuy() {
+    this.isSwapedBuy = !this.isSwapedBuy
+  }
+  swapAmountsSell() {
+    this.isSwapedSell = !this.isSwapedSell
+  }
+
 }
