@@ -1,56 +1,77 @@
-<div class="container mx-auto p-6 text-white rounded-lg bg-zinc-900">
-  <h1 class="text-4xl font-bold mb-6 text-center">Exchange</h1>
-
-  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <!-- Buy USDT -->
-    <div class="bg-zinc-800 p-6 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Buy USDT</h2>
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-2">{{ isSwapedBuy   ? 'Receive (USDT)' : 'Spend (OMR)' }}</label>
-        <input type="number" [(ngModel)]="spendAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="{{ isSwapedBuy ? 'Enter USDT amount' : 'Enter OMR amount' }}"/>
+<div class="container mx-auto p-6 text-white rounded-lg bg-zinc-900 transition-all duration-500 ease-in-out">
+  <div class="flex justify-between items-center p-4 transition-all duration-500 ease-in-out">
+    <div class="flex items-center">
+      <img src="/logo.png" class="transition-all duration-500 ease-in-out sm:w-16 sm:h-16 w-12 h-12" alt="Exchange" />
+      <div class="ml-4">
+        <h1 class="transition-all duration-500 ease-in-out text-2xl sm:text-4xl font-bold">Exchange</h1>
+        <span class="hidden sm:inline">USDT to OMR & OMR to USDT</span>
       </div>
-      <div class="flex justify-center my-4">
-        <button (click)="swapAmountsBuy()" class="bg-blue-500 text-white p-3 rounded-md font-bold">
-          <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none">
-            <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"/>
-            <path d="M10 7L10 17L7 13.5625" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M14 17L14 7L17 10.4375" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-        </button>
-      </div>
-      <div class="mb-4">
-        <label class="block text-sm font-medium mb-2">{{ isSwapedBuy   ? 'Spend (OMR)' : 'Receive (USDT)' }}</label>
-        <input type="number" [(ngModel)]="receiveAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" readonly placeholder="USDT amount"/>
-      </div>
-      <button (click)="calculateBuy()" class="w-full bg-yellow-500 text-black p-3 rounded-md font-bold">Calculate</button>
     </div>
 
-    <!-- Sell USDT -->
-    <div class="bg-zinc-800 p-6 rounded-lg shadow-lg">
-      <h2 class="text-2xl font-semibold mb-4 text-center">Sell USDT</h2>
+    <div class="text-right">
+      <span class="block transition-all duration-500 ease-in-out text-sm sm:text-lg font-medium">{{ currentDate }}</span>
+      <span class="block transition-all duration-500 ease-in-out text-sm sm:text-lg font-medium">{{ currentTime }}</span>
+    </div>
+  </div>
+
+
+  <!-- Grid for Buy and Sell -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-10">
+    <!-- Buy USDT Section -->
+    <div class="bg-zinc-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+      <h2 class="text-2xl font-semibold mb-4 text-center">Buy USDT</h2>
       <div class="mb-4">
-        <label class="block text-sm font-medium mb-2">{{ isSwapedSell   ? 'Receive (OMR)' : 'Spend (USDT)' }}</label>
-        <input type="number" [(ngModel)]="spendAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="{{ isSwapedSell ? 'Enter OMR amount' : 'Enter USDT amount' }}"/>
+        <label class="block text-sm font-medium mb-2">{{ isSwapedBuy ? 'Receive (USDT)' : 'Spend (OMR)' }}</label>
+        <input type="number" [(ngModel)]="spendAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white focus:ring-2 focus:ring-blue-500 transition-all duration-300" placeholder="{{ isSwapedBuy ? 'Enter USDT amount' : 'Enter OMR amount' }}"/>
       </div>
+
       <div class="flex justify-center my-4">
-        <button (click)="swapAmountsSell()" class="bg-blue-500 text-white p-3 rounded-md font-bold">
+        <button (click)="swapAmountsBuy()" class="bg-blue-500 text-white p-3 rounded-md font-bold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 transform hover:scale-110">
           <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none">
             <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"/>
             <path d="M10 7L10 17L7 13.5625" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
             <path d="M14 17L14 7L17 10.4375" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+          </svg>
         </button>
       </div>
+
       <div class="mb-4">
-        <label class="block text-sm font-medium mb-2">{{ isSwapedSell   ? 'Spend (USDT)' : 'Receive (OMR)' }}</label>
+        <label class="block text-sm font-medium mb-2">{{ isSwapedBuy ? 'Spend (OMR)' : 'Receive (USDT)' }}</label>
+        <input type="number" [(ngModel)]="receiveAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" readonly placeholder="USDT amount"/>
+      </div>
+
+      <button (click)="calculateBuy()" class="w-full bg-yellow-500 text-black p-3 rounded-md font-bold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-transform duration-300 transform hover:scale-105">Calculate</button>
+    </div>
+
+    <!-- Sell USDT Section -->
+    <div class="bg-zinc-800 p-6 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 ease-in-out">
+      <h2 class="text-2xl font-semibold mb-4 text-center">Sell USDT</h2>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2">{{ isSwapedSell ? 'Receive (OMR)' : 'Spend (USDT)' }}</label>
+        <input type="number" [(ngModel)]="spendAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white focus:ring-2 focus:ring-blue-500 transition-all duration-300" placeholder="{{ isSwapedSell ? 'Enter OMR amount' : 'Enter USDT amount' }}"/>
+      </div>
+
+      <div class="flex justify-center my-4">
+        <button (click)="swapAmountsSell()" class="bg-blue-500 text-white p-3 rounded-md font-bold hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 transform hover:scale-110">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32px" height="32px" viewBox="0 0 24 24" fill="none">
+            <path d="M2 12C2 7.28595 2 4.92893 3.46447 3.46447C4.92893 2 7.28595 2 12 2C16.714 2 19.0711 2 20.5355 3.46447C22 4.92893 22 7.28595 22 12C22 16.714 22 19.0711 20.5355 20.5355C19.0711 22 16.714 22 12 22C7.28595 22 4.92893 22 3.46447 20.5355C2 19.0711 2 16.714 2 12Z" stroke="#1C274C" stroke-width="1.5"/>
+            <path d="M10 7L10 17L7 13.5625" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M14 17L14 7L17 10.4375" stroke="#1C274C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </button>
+      </div>
+
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2">{{ isSwapedSell ? 'Spend (USDT)' : 'Receive (OMR)' }}</label>
         <input type="number" [(ngModel)]="receiveAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white" readonly placeholder="OMR amount"/>
       </div>
-      <button (click)="calculateSell()" class="w-full bg-yellow-500 text-black p-3 rounded-md font-bold">Calculate</button>
+
+      <button (click)="calculateSell()" class="w-full bg-yellow-500 text-black p-3 rounded-md font-bold hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 transition-transform duration-300 transform hover:scale-105">Calculate</button>
     </div>
   </div>
 
   <!-- Result Section -->
-  <div class="mt-6 p-4 bg-zinc-800 rounded-lg shadow-lg">
+  <div class="mt-6 p-4 bg-zinc-800 rounded-lg shadow-lg transition-all duration-500 ease-in-out">
     <h3 class="text-xl font-semibold mb-2 text-center">Conversion Result</h3>
     <p class="text-center" *ngIf="conversionMessage">{{ conversionMessage }}</p>
   </div>

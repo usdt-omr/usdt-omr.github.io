@@ -23,6 +23,8 @@ export class ExchangeComponent {
 
   isSwapedBuy: boolean = false;
   isSwapedSell: boolean = false;
+  currentDate!: string;
+  currentTime!: string;
 
 
   private linearInterpolation(minValue: number, maxValue: number, minRate: number, maxRate: number, value: number): number {
@@ -30,6 +32,21 @@ export class ExchangeComponent {
     if (value >= maxValue) return maxRate;
     return minRate + (maxRate - minRate) * ((value - minValue) / (maxValue - minValue));
   }
+
+  ngOnInit() {
+    this.updateTime(); // اولین بار مقدار دهی زمان
+    setInterval(() => {
+      this.updateTime(); // هر ثانیه زمان را به‌روز کن
+    }, 1000);
+  }
+
+  updateTime() {
+    const date = new Date();
+    const options: Intl.DateTimeFormatOptions = { year: 'numeric', month: 'long', day: 'numeric' };
+    this.currentTime = date.toLocaleTimeString();
+    this.currentDate =  date.toLocaleDateString('en-US', options);
+   }
+
 
   private getBuyExchangeRate(): number {
     if (this.spendAmountBuy < 384) {
