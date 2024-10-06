@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "angular-material-3": {
+    "exchange": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -15,11 +15,11 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:application",
+          "builder": "@angular-builders/custom-webpack:browser",
           "options": {
-            "outputPath": "dist/angular-material-3",
-            "index": "src/index.html",
-            "browser": "src/main.ts",
+              "outputPath": "dist",
+              "index": "src/index.html",
+              "main": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
@@ -64,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "angular-material-3:build:production"
+              "buildTarget": "exchange:build:production"
             },
             "development": {
-              "buildTarget": "angular-material-3:build:development"
+              "buildTarget": "exchange:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -102,7 +102,7 @@
                         "name": "miladsoft",
                         "email": "miladsoft@yahoo.com",
                         "baseHref": "/",
-                        "dir": "dist/exchange/browser",
+                        "dir": "dist",
                         "repo": "https://github.com/usdt-omr/usdt-omr.github.io.git"
                      }
         }
