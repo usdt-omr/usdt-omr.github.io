@@ -1,6 +1,6 @@
 {
   "name": "exchange",
-  "short_name": "ex",
+  "short_name": "exchange",
   "scope": "./",
   "start_url": "./",
   "categories": ["tools"],
