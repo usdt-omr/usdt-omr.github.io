@@ -1,6 +1,6 @@
 {
-  "name": "Exchange",
-  "short_name": "EX",
+  "name": "exchange",
+  "short_name": "ex",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
