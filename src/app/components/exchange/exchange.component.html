@@ -1,0 +1,39 @@
+<div class="container mx-auto p-6 text-white rounded-lg bg-zinc-900">
+  <h1 class="text-4xl font-bold mb-6 text-center">Exchange</h1>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <!-- Buy USDT -->
+    <div class="bg-zinc-800 p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4 text-center">Buy USDT</h2>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2">Spend (OMR)</label>
+        <input type="number" [(ngModel)]="spendAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="Enter OMR amount"/>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2">Receive (USDT)</label>
+        <input type="number" [(ngModel)]="receiveAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" readonly placeholder="USDT amount"/>
+      </div>
+      <button (click)="calculateBuy()" class="w-full bg-yellow-500 text-black p-3 rounded-md font-bold">Calculate</button>
+    </div>
+
+    <!-- Sell USDT -->
+    <div class="bg-zinc-800 p-6 rounded-lg shadow-lg">
+      <h2 class="text-2xl font-semibold mb-4 text-center">Sell USDT</h2>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2">Spend (USDT)</label>
+        <input type="number" [(ngModel)]="spendAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="Enter USDT amount"/>
+      </div>
+      <div class="mb-4">
+        <label class="block text-sm font-medium mb-2">Receive (OMR)</label>
+        <input type="number" [(ngModel)]="receiveAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white" readonly placeholder="OMR amount"/>
+      </div>
+      <button (click)="calculateSell()" class="w-full bg-yellow-500 text-black p-3 rounded-md font-bold">Calculate</button>
+    </div>
+  </div>
+
+  <!-- Result Section -->
+  <div class="mt-6 p-4 bg-zinc-800 rounded-lg shadow-lg">
+    <h3 class="text-xl font-semibold mb-2 text-center">Conversion Result</h3>
+    <p class="text-center" *ngIf="conversionMessage">{{ conversionMessage }}</p>
+  </div>
+</div>
