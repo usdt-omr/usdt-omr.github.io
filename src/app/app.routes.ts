@@ -3,9 +3,10 @@ import { RouterModule, Routes } from '@angular/router';
 import { ExchangeComponent } from './components/exchange/exchange.component';
 
 export const routes: Routes = [
+  { path: '', component: ExchangeComponent, pathMatch: 'full' },
   { path: 'exchange', component: ExchangeComponent },
-   { path: '', redirectTo: '/exchange', pathMatch: 'full' },
-  { path: '**', redirectTo: '/exchange' }
+  { path: '**', redirectTo: '' }
+
 ];
 
 @NgModule({
