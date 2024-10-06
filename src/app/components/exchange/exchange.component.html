@@ -7,7 +7,7 @@
       <h2 class="text-2xl font-semibold mb-4 text-center">Buy USDT</h2>
       <div class="mb-4">
         <label class="block text-sm font-medium mb-2">{{ isSwapedBuy   ? 'Receive (USDT)' : 'Spend (OMR)' }}</label>
-        <input type="number" [(ngModel)]="spendAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="Enter OMR amount"/>
+        <input type="number" [(ngModel)]="spendAmountBuy" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="{{ isSwapedBuy ? 'Enter USDT amount' : 'Enter OMR amount' }}"/>
       </div>
       <div class="flex justify-center my-4">
         <button (click)="swapAmountsBuy()" class="bg-blue-500 text-white p-3 rounded-md font-bold">
@@ -30,7 +30,7 @@
       <h2 class="text-2xl font-semibold mb-4 text-center">Sell USDT</h2>
       <div class="mb-4">
         <label class="block text-sm font-medium mb-2">{{ isSwapedSell   ? 'Receive (OMR)' : 'Spend (USDT)' }}</label>
-        <input type="number" [(ngModel)]="spendAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="Enter USDT amount"/>
+        <input type="number" [(ngModel)]="spendAmountSell" class="w-full p-3 bg-zinc-700 rounded-md text-white" placeholder="{{ isSwapedBuy ? 'Enter OMR amount' : 'Enter USDT amount' }}"/>
       </div>
       <div class="flex justify-center my-4">
         <button (click)="swapAmountsSell()" class="bg-blue-500 text-white p-3 rounded-md font-bold">
