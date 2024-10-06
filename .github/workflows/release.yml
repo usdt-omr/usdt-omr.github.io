@@ -34,7 +34,7 @@ jobs:
 
       # Step 3: Install dependencies
       - name: Install Dependencies
-        run: npm ci
+        run: npm ci --force
 
       # Step 4: Determine version
       - name: Set Version Variable
